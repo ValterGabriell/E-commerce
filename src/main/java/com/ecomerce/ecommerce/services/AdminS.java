@@ -3,12 +3,10 @@ package com.ecomerce.ecommerce.services;
 import com.ecomerce.ecommerce.model.Admin.Admin;
 import com.ecomerce.ecommerce.model.Admin.AdminDTO;
 import com.ecomerce.ecommerce.model.Admin.AdminRep;
+import com.ecomerce.ecommerce.util.Utils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Base64;
-import java.util.Optional;
 
 
 @Service
@@ -28,11 +26,12 @@ public class AdminS {
 
         Admin admin = mapper.map(adminDTO, Admin.class);
         String username = admin.getUsername();
-        Admin adm = adminRep.findByUsername(username);
 
-        if (adm == null) {
+        Admin getAdmin = adminRep.findByUsername(username);
+
+        if (getAdmin == null) {
             String password = admin.getPassword();
-            admin.setPassword(Base64.getEncoder().encodeToString(password.getBytes()));
+            admin.setPassword(Utils.encodePassword(password));
             admin = adminRep.save(admin);
             adminDTO.setId(admin.getId());
         }
@@ -50,7 +49,7 @@ public class AdminS {
 
         if (admin != null) {
             String currentPassword = adminDTO.getPassword();
-            String coded = Base64.getEncoder().encodeToString(currentPassword.getBytes());
+            String coded = Utils.encodePassword(currentPassword);
             if (coded.equals(admin.getPassword())) {
                 ModelMapper mapper = new ModelMapper();
                 return mapper.map(admin, AdminDTO.class);
