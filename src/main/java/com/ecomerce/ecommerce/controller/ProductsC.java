@@ -1,8 +1,8 @@
 package com.ecomerce.ecommerce.controller;
 
-import com.ecomerce.ecommerce.model.Products.Products;
 import com.ecomerce.ecommerce.model.Products.ProductsDTO;
 import com.ecomerce.ecommerce.model.Products.ProductsRequest;
+import com.ecomerce.ecommerce.model.Products.ProductsResponse;
 import com.ecomerce.ecommerce.services.ProductsS;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +21,23 @@ public class ProductsC {
 
 
     @PostMapping("/product")
-    public ResponseEntity<Products> createNewProduct(@RequestBody ProductsRequest productsRequest) {
+    public ResponseEntity<ProductsResponse> createNewProduct(@RequestBody ProductsRequest productsRequest) {
         ProductsDTO productsDTO = Utils.getModelMapperInstance(productsRequest, ProductsDTO.class);
         productsDTO = productsS.createNewProduct(productsDTO);
 
-        Products products = Utils.getModelMapperInstance(productsDTO, Products.class);
+        ProductsResponse products = Utils.getModelMapperInstance(productsDTO, ProductsResponse.class);
         return new ResponseEntity<>(products, HttpStatus.CREATED);
     }
 
     @GetMapping("/product")
-    public ResponseEntity<List<Products>> listAllProducts() {
+    public ResponseEntity<List<ProductsResponse>> listAllProducts() {
         List<ProductsDTO> listProductsDTO = productsS.listAllProducts();
-        List<Products> productsList = listProductsDTO.stream().map(element -> Utils.getModelMapperInstance(element, Products.class)).collect(Collectors.toList());
+        List<ProductsResponse> productsList = listProductsDTO.stream().map(element -> Utils.getModelMapperInstance(element, ProductsResponse.class)).collect(Collectors.toList());
         return new ResponseEntity<>(productsList, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<String> deleteProductById(@PathVariable Integer productId) {
+        return new ResponseEntity<>(productsS.deleteProductById(productId), HttpStatus.NO_CONTENT);
     }
 }

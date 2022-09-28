@@ -3,6 +3,7 @@ package com.ecomerce.ecommerce.controller;
 import com.ecomerce.ecommerce.model.Admin.AdminDTO;
 import com.ecomerce.ecommerce.model.Admin.AdminRequest;
 import com.ecomerce.ecommerce.model.Admin.AdminResponse;
+import com.ecomerce.ecommerce.model.Sellers.Seller;
 import com.ecomerce.ecommerce.services.AdminS;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,18 @@ public class AdminC {
      */
     @PostMapping("/signIn")
     public ResponseEntity<AdminResponse> signInUser(@RequestBody AdminRequest adminRequest) {
-
         AdminDTO adminDTO = Utils.getModelMapperInstance(adminRequest, AdminDTO.class);
         adminDTO = adminS.signIn(adminDTO);
-        AdminResponse adminResponse = Utils.getModelMapperInstance(adminDTO, AdminResponse.class);
-        return new ResponseEntity<>(adminResponse, HttpStatus.OK);
+
+        if (adminDTO != null) {
+            AdminResponse adminResponse = Utils.getModelMapperInstance(adminDTO, AdminResponse.class);
+            return new ResponseEntity<>(adminResponse, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new AdminResponse(), HttpStatus.NOT_FOUND);
+        }
+
+
+
     }
 
 

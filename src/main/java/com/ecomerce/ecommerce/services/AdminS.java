@@ -51,11 +51,10 @@ public class AdminS {
             String currentPassword = adminDTO.getPassword();
             String coded = Utils.encodePassword(currentPassword);
             if (coded.equals(admin.getPassword())) {
-
                 return Utils.getModelMapperInstance(admin, AdminDTO.class);
             }
         }
-        return new AdminDTO();
+        return null;
     }
 
 
