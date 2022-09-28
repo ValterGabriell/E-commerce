@@ -22,9 +22,9 @@ public class AdminS {
      */
     public AdminDTO signUp(AdminDTO adminDTO) {
         adminDTO.setId(null);
-        ModelMapper mapper = new ModelMapper();
 
-        Admin admin = mapper.map(adminDTO, Admin.class);
+
+        Admin admin = Utils.getModelMapperInstance(adminDTO, Admin.class);
         String username = admin.getUsername();
 
         Admin getAdmin = adminRep.findByUsername(username);
@@ -51,8 +51,8 @@ public class AdminS {
             String currentPassword = adminDTO.getPassword();
             String coded = Utils.encodePassword(currentPassword);
             if (coded.equals(admin.getPassword())) {
-                ModelMapper mapper = new ModelMapper();
-                return mapper.map(admin, AdminDTO.class);
+
+                return Utils.getModelMapperInstance(admin, AdminDTO.class);
             }
         }
         return new AdminDTO();

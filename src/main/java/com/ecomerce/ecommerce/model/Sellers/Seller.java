@@ -1,5 +1,7 @@
 package com.ecomerce.ecommerce.model.Sellers;
 
+import com.ecomerce.ecommerce.model.Products.Products;
+
 import javax.persistence.*;
 
 @Entity

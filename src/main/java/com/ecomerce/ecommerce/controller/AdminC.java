@@ -4,15 +4,17 @@ import com.ecomerce.ecommerce.model.Admin.AdminDTO;
 import com.ecomerce.ecommerce.model.Admin.AdminRequest;
 import com.ecomerce.ecommerce.model.Admin.AdminResponse;
 import com.ecomerce.ecommerce.services.AdminS;
-import org.modelmapper.ModelMapper;
+import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/admin")
 public class AdminC {
     @Autowired
     AdminS adminS;
@@ -23,12 +25,12 @@ public class AdminC {
      * @param adminRequest
      * @return Admin User
      */
-    @PostMapping("/admin/signUp")
+    @PostMapping("/signUp")
     public ResponseEntity<AdminResponse> createNewAdminUser(@RequestBody AdminRequest adminRequest) {
-        ModelMapper mapper = new ModelMapper();
-        AdminDTO adminDTO = mapper.map(adminRequest, AdminDTO.class);
+
+        AdminDTO adminDTO = Utils.getModelMapperInstance(adminRequest, AdminDTO.class);
         adminDTO = adminS.signUp(adminDTO);
-        AdminResponse adminResponse = mapper.map(adminDTO, AdminResponse.class);
+        AdminResponse adminResponse = Utils.getModelMapperInstance(adminDTO, AdminResponse.class);
         return new ResponseEntity<>(adminResponse, HttpStatus.CREATED);
     }
 
@@ -38,12 +40,12 @@ public class AdminC {
      * @param adminRequest
      * @return Admin User
      */
-    @PostMapping("/admin/signIn")
+    @PostMapping("/signIn")
     public ResponseEntity<AdminResponse> signInUser(@RequestBody AdminRequest adminRequest) {
-        ModelMapper mapper = new ModelMapper();
-        AdminDTO adminDTO = mapper.map(adminRequest, AdminDTO.class);
+
+        AdminDTO adminDTO = Utils.getModelMapperInstance(adminRequest, AdminDTO.class);
         adminDTO = adminS.signIn(adminDTO);
-        AdminResponse adminResponse = mapper.map(adminDTO, AdminResponse.class);
+        AdminResponse adminResponse = Utils.getModelMapperInstance(adminDTO, AdminResponse.class);
         return new ResponseEntity<>(adminResponse, HttpStatus.OK);
     }
 
