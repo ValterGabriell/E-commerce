@@ -1,5 +1,9 @@
 package com.ecomerce.ecommerce.model.Sellers;
 
+import com.ecomerce.ecommerce.model.Products.Products;
+
+import java.util.List;
+
 public class SellerDTO {
 
     private Integer id;
@@ -7,6 +11,16 @@ public class SellerDTO {
     private String cpf_cnpj;
     private String username;
     private String password;
+    private List<Products> productsList;
+
+
+    public List<Products> getProductsList() {
+        return productsList;
+    }
+
+    public void setProductsList(List<Products> productsList) {
+        this.productsList = productsList;
+    }
 
     public Integer getId() {
         return id;

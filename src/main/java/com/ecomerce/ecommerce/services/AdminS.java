@@ -3,20 +3,28 @@ package com.ecomerce.ecommerce.services;
 import com.ecomerce.ecommerce.model.Admin.Admin;
 import com.ecomerce.ecommerce.model.Admin.AdminDTO;
 import com.ecomerce.ecommerce.model.Admin.AdminRep;
+import com.ecomerce.ecommerce.model.Sellers.Seller;
+import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
+import com.ecomerce.ecommerce.model.Sellers.SellerRep;
 import com.ecomerce.ecommerce.util.Utils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
 public class AdminS {
     @Autowired
     AdminRep adminRep;
-
+    @Autowired
+    SellerRep sellerRep;
 
     /**
      * Método responsavel por validar se um usuário existe ou não no sistema, para só entao criar ele
+     *
      * @param adminDTO
      * @return
      */
@@ -40,6 +48,7 @@ public class AdminS {
 
     /**
      * Método responsavel por logar o usuario caso coloque a senha correta
+     *
      * @param adminDTO
      * @return
      */
@@ -55,6 +64,16 @@ public class AdminS {
             }
         }
         return null;
+    }
+
+    public List<SellerDTO> getAllSellers() {
+        List<Seller> sellerList = sellerRep.findAll();
+        return sellerList.stream().map(element -> Utils.getModelMapperInstance(element, SellerDTO.class)).collect(Collectors.toList());
+    }
+
+    public SellerDTO getSellerById(Integer seller_id) {
+        Optional<Seller> seller = sellerRep.findById(seller_id);
+        return seller.map(value -> Utils.getModelMapperInstance(value, SellerDTO.class)).orElse(null);
     }
 
 
