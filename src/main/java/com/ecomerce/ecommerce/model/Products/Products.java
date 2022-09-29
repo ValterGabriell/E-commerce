@@ -23,7 +23,6 @@ public class Products {
     //dentro da coluna vai ter uma tabela seller_id
     @JoinColumn(name = "seller_id")
     @NotNull
-    @JsonBackReference
     private Seller seller_id;
 
     public Seller getSeller_id() {
