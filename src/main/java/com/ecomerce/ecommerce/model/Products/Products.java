@@ -1,6 +1,9 @@
 package com.ecomerce.ecommerce.model.Products;
 
 import com.ecomerce.ecommerce.model.Sellers.Seller;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
@@ -17,15 +20,18 @@ public class Products {
     private Double price;
 
     @ManyToOne
+    //dentro da coluna vai ter uma tabela seller_id
     @JoinColumn(name = "seller_id")
-    private Seller seller;
+    @NotNull
+    @JsonBackReference
+    private Seller seller_id;
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public Seller getSeller_id() {
+        return seller_id;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public void setSeller_id(Seller seller_id) {
+        this.seller_id = seller_id;
     }
 
     public Integer getId() {

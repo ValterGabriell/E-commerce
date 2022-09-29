@@ -3,26 +3,31 @@ package com.ecomerce.ecommerce.controller;
 import com.ecomerce.ecommerce.model.Admin.AdminDTO;
 import com.ecomerce.ecommerce.model.Admin.AdminRequest;
 import com.ecomerce.ecommerce.model.Admin.AdminResponse;
-import com.ecomerce.ecommerce.model.Sellers.Seller;
+import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
+import com.ecomerce.ecommerce.model.Sellers.SellerResponse;
 import com.ecomerce.ecommerce.services.AdminS;
+import com.ecomerce.ecommerce.services.SellerS;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminC {
     @Autowired
     AdminS adminS;
+    @Autowired
+    SellerS sellerS;
+
 
     /**
-     *
      * Método responsável por criar um novo usuário administrador de sistema
+     *
      * @param adminRequest
      * @return Admin User
      */
@@ -38,6 +43,7 @@ public class AdminC {
 
     /**
      * Método responsável por logar um usuário administrador de sistema
+     *
      * @param adminRequest
      * @return Admin User
      */
@@ -52,14 +58,21 @@ public class AdminC {
         } else {
             return new ResponseEntity<>(new AdminResponse(), HttpStatus.NOT_FOUND);
         }
-
-
-
     }
 
+    @GetMapping("/sellers")
+    public ResponseEntity<List<SellerResponse>> getAllSellers() {
+        List<SellerDTO> sellerDTOList = adminS.getAllSellers();
+        List<SellerResponse> sellerResponseList = sellerDTOList.stream().map(element -> Utils.getModelMapperInstance(element, SellerResponse.class)).collect(Collectors.toList());
+        return new ResponseEntity<>(sellerResponseList, HttpStatus.OK);
+    }
 
-
-
+    @GetMapping("/sellers/{seller_id}")
+    public ResponseEntity<SellerResponse> getSellerById(@PathVariable Integer seller_id) {
+            SellerDTO sellerDTO = adminS.getSellerById(seller_id);
+            SellerResponse sellerResponse = Utils.getModelMapperInstance(sellerDTO, SellerResponse.class);
+            return new ResponseEntity<>(sellerResponse, HttpStatus.OK);
+    }
 
 
 }

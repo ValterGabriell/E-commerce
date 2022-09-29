@@ -5,7 +5,7 @@ import com.ecomerce.ecommerce.model.Sellers.Seller;
 public class ProductsRequest {
     private String name;
     private Double price;
-    private Seller seller;
+    private Seller seller_id;
 
     public String getName() {
         return name;
@@ -23,11 +23,11 @@ public class ProductsRequest {
         this.price = price;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public Seller getSeller_id() {
+        return seller_id;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setSeller_id(Seller seller_id) {
+        this.seller_id = seller_id;
     }
 }

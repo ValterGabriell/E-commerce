@@ -1,8 +1,11 @@
 package com.ecomerce.ecommerce.model.Sellers;
 
 import com.ecomerce.ecommerce.model.Products.Products;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Seller {
@@ -17,6 +20,19 @@ public class Seller {
     private String username;
     @Column(name = "password")
     private String password;
+
+    //apontando para a coluna na outra entidade que faz esse relacionamento pq quem manda é a tabela produto
+    @OneToMany(mappedBy = "seller_id")
+    @JsonManagedReference
+    private List<Products> productsList;
+
+    public List<Products> getProductsList() {
+        return productsList;
+    }
+
+    public void setProductsList(List<Products> productsList) {
+        this.productsList = productsList;
+    }
 
     public Integer getId() {
         return id;

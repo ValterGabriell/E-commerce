@@ -10,7 +10,7 @@ public class ProductsDTO {
     private Integer id;
     private String name;
     private Double price;
-    private Seller seller;
+    private Seller seller_id;
 
     public Integer getId() {
         return id;
@@ -36,11 +36,11 @@ public class ProductsDTO {
         this.price = price;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public Seller getSeller_id() {
+        return seller_id;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setSeller_id(Seller seller_id) {
+        this.seller_id = seller_id;
     }
 }
