@@ -1,9 +1,8 @@
-package com.ecomerce.ecommerce.model.Products;
+package com.ecomerce.ecommerce.model.Products.Reponses;
 
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 
-public class ProductsResponse {
-
+public class ProductResponseWithId {
     private Integer id;
     private String name;
     private Double price;
@@ -33,8 +32,8 @@ public class ProductsResponse {
         this.price = price;
     }
 
-    public Seller getSeller_id() {
-        return seller_id;
+    public Integer getSeller_id() {
+        return seller_id.getId();
     }
 
     public void setSeller_id(Seller seller_id) {

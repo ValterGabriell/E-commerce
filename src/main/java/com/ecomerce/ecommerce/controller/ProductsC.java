@@ -1,9 +1,14 @@
 package com.ecomerce.ecommerce.controller;
 
+import com.ecomerce.ecommerce.model.Products.Products;
 import com.ecomerce.ecommerce.model.Products.ProductsDTO;
 import com.ecomerce.ecommerce.model.Products.ProductsRequest;
-import com.ecomerce.ecommerce.model.Products.ProductsResponse;
+import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithId;
+import com.ecomerce.ecommerce.model.Products.Reponses.ProductsResponse;
+import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
+import com.ecomerce.ecommerce.model.Sellers.SellerResponse;
 import com.ecomerce.ecommerce.services.ProductsS;
+import com.ecomerce.ecommerce.util.Constantes;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +26,11 @@ public class ProductsC {
 
 
     @PostMapping("/product")
-    public ResponseEntity<ProductsResponse> createNewProduct(@RequestBody ProductsRequest productsRequest) {
+    public ResponseEntity<ProductResponseWithId> createNewProduct(@RequestBody ProductsRequest productsRequest) {
         ProductsDTO productsDTO = Utils.getModelMapperInstance(productsRequest, ProductsDTO.class);
         productsDTO = productsS.createNewProduct(productsDTO);
 
-        ProductsResponse products = Utils.getModelMapperInstance(productsDTO, ProductsResponse.class);
+        ProductResponseWithId products = Utils.getModelMapperInstance(productsDTO, ProductResponseWithId.class);
         return new ResponseEntity<>(products, HttpStatus.CREATED);
     }
 
@@ -36,11 +41,16 @@ public class ProductsC {
         return new ResponseEntity<>(productsList, HttpStatus.OK);
     }
 
-    @DeleteMapping("/product/{productId}")
-    public ResponseEntity<String> deleteProductById(@PathVariable Integer productId) {
-        return new ResponseEntity<>(productsS.deleteProductById(productId), HttpStatus.NO_CONTENT);
-    }
+    @DeleteMapping("/product/{seller_id}/{productId}")
+    public ResponseEntity<String> deleteProductById(@PathVariable Integer seller_id, @PathVariable Integer productId) {
+        String response = productsS.deleteProductById(seller_id, productId);
+        if (response.equals(Constantes.DELETED_FAIL)){
+            return new ResponseEntity<>(Constantes.NOT_FOUND, HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        }
 
+    }
 
 
 }

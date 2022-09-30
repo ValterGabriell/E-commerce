@@ -49,5 +49,10 @@ public class SellerS {
     }
 
 
+    public SellerDTO getSellerById(Integer seller_id) {
+        Optional<Seller> seller = sellerRep.findById(seller_id);
+        return seller.map(value -> Utils.getModelMapperInstance(value, SellerDTO.class)).orElse(null);
+    }
+
 
 }
