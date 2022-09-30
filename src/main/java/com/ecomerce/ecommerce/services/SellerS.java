@@ -6,6 +6,7 @@ import com.ecomerce.ecommerce.model.Products.ProductsRep;
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
 import com.ecomerce.ecommerce.model.Sellers.SellerRep;
+import com.ecomerce.ecommerce.util.Constantes;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,7 @@ import java.util.Optional;
 public class SellerS {
     @Autowired
     SellerRep sellerRep;
-    @Autowired
-    ProductsRep productsRep;
+
 
 
     public SellerDTO signUpSeller(SellerDTO sellerDTO) {
@@ -52,6 +52,10 @@ public class SellerS {
     public SellerDTO getSellerById(Integer seller_id) {
         Optional<Seller> seller = sellerRep.findById(seller_id);
         return seller.map(value -> Utils.getModelMapperInstance(value, SellerDTO.class)).orElse(null);
+    }
+
+    public void deleteSeller(Integer id){
+        sellerRep.deleteById(id);
     }
 
 

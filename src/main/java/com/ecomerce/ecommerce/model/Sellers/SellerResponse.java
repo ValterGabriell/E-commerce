@@ -1,6 +1,8 @@
 package com.ecomerce.ecommerce.model.Sellers;
 
 import com.ecomerce.ecommerce.model.Products.Products;
+import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithId;
+import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithoutId;
 
 import java.util.List;
 
@@ -9,13 +11,13 @@ public class SellerResponse {
     private String email;
     private String cpf_cnpj;
     private String username;
-    private List<Products> productsList;
+    private List<ProductResponseWithoutId> productsList;
 
-    public List<Products> getProductsList() {
+    public List<ProductResponseWithoutId> getProductsList() {
         return productsList;
     }
 
-    public void setProductsList(List<Products> productsList) {
+    public void setProductsList(List<ProductResponseWithoutId> productsList) {
         this.productsList = productsList;
     }
 
