@@ -4,6 +4,7 @@ import com.ecomerce.ecommerce.model.Products.Products;
 import com.ecomerce.ecommerce.model.Products.ProductsDTO;
 import com.ecomerce.ecommerce.model.Products.ProductsRequest;
 import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithId;
+import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithoutId;
 import com.ecomerce.ecommerce.model.Products.Reponses.ProductsResponse;
 import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
 import com.ecomerce.ecommerce.model.Sellers.SellerResponse;
@@ -49,7 +50,6 @@ public class ProductsC {
         }else{
             return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
         }
-
     }
 
 

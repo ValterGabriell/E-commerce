@@ -6,7 +6,9 @@ import com.ecomerce.ecommerce.model.Admin.AdminResponse;
 import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
 import com.ecomerce.ecommerce.model.Sellers.SellerResponse;
 import com.ecomerce.ecommerce.services.AdminS;
+import com.ecomerce.ecommerce.services.ProductsS;
 import com.ecomerce.ecommerce.services.SellerS;
+import com.ecomerce.ecommerce.util.Constantes;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ public class AdminC {
     @Autowired
     AdminS adminS;
     @Autowired
-    SellerS sellerS;
+    ProductsS productsS;
 
 
     /**
@@ -73,6 +75,17 @@ public class AdminC {
             SellerResponse sellerResponse = Utils.getModelMapperInstance(sellerDTO, SellerResponse.class);
             return new ResponseEntity<>(sellerResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<String> deleteProductById(@PathVariable Integer productId) {
+        String response = productsS.deleteProductByIdWhitoutSeller(productId);
+        if (response.equals(Constantes.DELETED_FAIL)){
+            return new ResponseEntity<>(Constantes.NOT_FOUND, HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        }
+    }
+
 
 
 }
