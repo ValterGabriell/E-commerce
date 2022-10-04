@@ -26,10 +26,7 @@ public class ProductsS {
     ProductsRep productsRep;
     @Autowired
     SellerRep sellerRep;
-    @Autowired
-    CartRep cartRep;
-    @Autowired
-    CostumerRep costumerRep;
+
 
     public ProductsDTO createNewProduct(ProductsDTO productsDTO) {
         productsDTO.setId(null);
@@ -42,38 +39,6 @@ public class ProductsS {
         return productsDTO;
     }
 
-    public CartDTO addCar(CartDTO cartDTO) {
-        boolean existId = ImportantsMethods.Companion.verifyIfProductExists(cartDTO.getProduct(), productsRep);
-        Costumer costumer = costumerRep.findById(cartDTO.getCostumer().getId()).get();
-        if (existId){
-            //setando o id do carrinho sendo o id do usuario
-            cartDTO.setId(costumer.getId());
-
-            Cart cart = Utils.getModelMapperInstance(cartDTO, Cart.class);
-            //returnando a lista de produtos passados na request como uma lista de inteiro
-            List<Integer> listIds = ImportantsMethods.Companion.returnIds(cart.getProduct());
-
-            //identificamos todos na lista de produtos gerais que tenham esses ids
-            List<Products> productsList = productsRep.findAllById(listIds);
-
-            //calculando o valor totalm da lista
-            Double totalValue = ImportantsMethods.Companion.calculateTotalValue(productsList);
-
-            cartDTO.setAmount(totalValue);
-            cartDTO.setCostumer(costumer);
-            cart.setAmount(totalValue);
-
-            cartRep.save(cart);
-
-            cartDTO.setProduct(productsList);
-            cartDTO.setId(cart.getId());
-
-            return cartDTO;
-        }else{
-            return new CartDTO();
-        }
-
-    }
 
     public List<ProductsDTO> listAllProducts() {
         List<Products> productsList = productsRep.findAll();

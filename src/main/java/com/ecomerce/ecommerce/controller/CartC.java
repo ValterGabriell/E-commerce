@@ -1,6 +1,7 @@
 package com.ecomerce.ecommerce.controller;
 
 import com.ecomerce.ecommerce.model.Cart.CartDTO;
+import com.ecomerce.ecommerce.model.Cart.CartRequest;
 import com.ecomerce.ecommerce.model.Cart.CartResponse;
 import com.ecomerce.ecommerce.services.CartS;
 import com.ecomerce.ecommerce.util.Utils;
@@ -20,6 +21,14 @@ public class CartC {
         CartDTO cartDTO = cartS.getCartById(costumer_id);
         CartResponse cartResponse = Utils.getModelMapperInstance(cartDTO, CartResponse.class);
         return new ResponseEntity<>(cartResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/product/add")
+    public ResponseEntity<CartResponse> addCar(@RequestBody CartRequest cartRequest) {
+        CartDTO cartDTO = Utils.getModelMapperInstance(cartRequest, CartDTO.class);
+        cartDTO = cartS.addCar(cartDTO);
+        CartResponse cart = Utils.getModelMapperInstance(cartDTO, CartResponse.class);
+        return new ResponseEntity<>(cart, HttpStatus.CREATED);
     }
 
 

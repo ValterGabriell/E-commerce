@@ -20,7 +20,7 @@ public class Cart {
     @JoinTable(
             name = "cart_product",
             joinColumns = @JoinColumn(name = "idCart"),
-            inverseJoinColumns = @JoinColumn(name = "idCostumer")
+            inverseJoinColumns = @JoinColumn(name = "idProduct")
     )
     @JsonBackReference
     private List<Products> product;
