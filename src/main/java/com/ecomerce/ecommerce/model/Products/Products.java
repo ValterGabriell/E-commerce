@@ -1,11 +1,13 @@
 package com.ecomerce.ecommerce.model.Products;
 
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Costumer.Costumer;
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Products {
@@ -22,16 +24,11 @@ public class Products {
     @ManyToOne
     //dentro da coluna vai ter uma tabela seller_id
     @JoinColumn(name = "seller_id")
-    @NotNull
+
     private Seller seller_id;
 
-    public Seller getSeller_id() {
-        return seller_id;
-    }
-
-    public void setSeller_id(Seller seller_id) {
-        this.seller_id = seller_id;
-    }
+    @ManyToMany(mappedBy = "product")
+    private List<Cart> cartList;
 
     public Integer getId() {
         return id;
@@ -55,5 +52,21 @@ public class Products {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Seller getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(Seller seller_id) {
+        this.seller_id = seller_id;
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 }

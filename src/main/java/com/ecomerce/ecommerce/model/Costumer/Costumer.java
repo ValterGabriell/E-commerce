@@ -1,6 +1,12 @@
 package com.ecomerce.ecommerce.model.Costumer;
 
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Products.Products;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Costumer {
@@ -18,13 +24,9 @@ public class Costumer {
     @Column(name = "costumer")
     private Boolean costumer;
 
-    public Boolean getCostumer() {
-        return costumer;
-    }
+    @OneToOne(mappedBy = "costumer")
+    private Cart cart;
 
-    public void setCostumer(Boolean costumer) {
-        this.costumer = costumer;
-    }
 
     public Integer getId() {
         return id;
@@ -64,5 +66,21 @@ public class Costumer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getCostumer() {
+        return costumer;
+    }
+
+    public void setCostumer(Boolean costumer) {
+        this.costumer = costumer;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

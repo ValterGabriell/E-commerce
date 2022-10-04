@@ -26,7 +26,4 @@ public class CostumerC {
         CostumerResponse costumerResponse = Utils.getModelMapperInstance(costumerDTO, CostumerResponse.class);
         return new ResponseEntity<>(costumerResponse, HttpStatus.CREATED);
     }
-
-
-
 }

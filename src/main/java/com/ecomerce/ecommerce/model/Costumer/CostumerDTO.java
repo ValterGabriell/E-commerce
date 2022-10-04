@@ -1,5 +1,12 @@
 package com.ecomerce.ecommerce.model.Costumer;
 
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Products.Products;
+
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
+import java.util.List;
+
 public class CostumerDTO {
 
     private Integer id;
@@ -8,15 +15,7 @@ public class CostumerDTO {
     private String username;
     private String password;
     private Boolean costumer;
-
-
-    public Boolean getCostumer() {
-        return costumer;
-    }
-
-    public void setCostumer(Boolean costumer) {
-        this.costumer = costumer;
-    }
+    private Cart cart;
 
     public Integer getId() {
         return id;
@@ -56,5 +55,21 @@ public class CostumerDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getCostumer() {
+        return costumer;
+    }
+
+    public void setCostumer(Boolean costumer) {
+        this.costumer = costumer;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

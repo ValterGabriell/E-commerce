@@ -1,12 +1,26 @@
 package com.ecomerce.ecommerce.model.Costumer;
 
-public class CostumerRequest {
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Products.Products;
 
+import java.util.List;
+
+public class CostumerRequest {
+    private Integer id;
     private String email;
     private String cpf_cnpj;
     private String username;
     private String password;
     private Boolean costumer;
+    private Cart cart;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -46,5 +60,13 @@ public class CostumerRequest {
 
     public void setCostumer(Boolean costumer) {
         this.costumer = costumer;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

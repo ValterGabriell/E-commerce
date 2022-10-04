@@ -1,5 +1,6 @@
 package com.ecomerce.ecommerce.controller;
 
+import com.ecomerce.ecommerce.model.Sellers.Response.SellerResponseCreated;
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
 import com.ecomerce.ecommerce.model.Sellers.SellerRequest;
@@ -19,10 +20,10 @@ public class SellerC {
     SellerS sellerS;
 
     @PostMapping("/seller/signUp")
-    public ResponseEntity<SellerResponse> signUpSeller(@RequestBody SellerRequest sellerRequest) {
+    public ResponseEntity<SellerResponseCreated> signUpSeller(@RequestBody SellerRequest sellerRequest) {
         SellerDTO sellerDTO = Utils.getModelMapperInstance(sellerRequest, SellerDTO.class);
         sellerDTO = sellerS.signUpSeller(sellerDTO);
-        SellerResponse seller = Utils.getModelMapperInstance(sellerDTO, SellerResponse.class);
+        SellerResponseCreated seller = Utils.getModelMapperInstance(sellerDTO, SellerResponseCreated.class);
         return new ResponseEntity<>(seller, HttpStatus.CREATED);
     }
 

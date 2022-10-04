@@ -1,16 +1,19 @@
 package com.ecomerce.ecommerce.model.Products;
 
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Costumer.Costumer;
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 public class ProductsDTO {
+
     private Integer id;
     private String name;
     private Double price;
     private Seller seller_id;
+    private List<Cart> cartList;
 
     public Integer getId() {
         return id;
@@ -42,5 +45,13 @@ public class ProductsDTO {
 
     public void setSeller_id(Seller seller_id) {
         this.seller_id = seller_id;
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 }

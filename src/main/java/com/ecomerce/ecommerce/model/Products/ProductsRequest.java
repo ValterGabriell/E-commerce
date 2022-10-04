@@ -1,11 +1,17 @@
 package com.ecomerce.ecommerce.model.Products;
 
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Costumer.Costumer;
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 
+import java.util.List;
+
 public class ProductsRequest {
+
     private String name;
     private Double price;
     private Seller seller_id;
+    private List<Cart> cartList;
 
     public String getName() {
         return name;
@@ -29,5 +35,13 @@ public class ProductsRequest {
 
     public void setSeller_id(Seller seller_id) {
         this.seller_id = seller_id;
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 }

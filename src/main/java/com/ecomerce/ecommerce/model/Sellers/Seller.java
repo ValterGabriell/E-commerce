@@ -23,7 +23,6 @@ public class Seller {
 
     //apontando para a coluna na outra entidade que faz esse relacionamento pq quem manda é a tabela produto
     @OneToMany(mappedBy = "seller_id")
-
     @JsonBackReference
     private List<Products> productsList;
 

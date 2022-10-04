@@ -1,5 +1,7 @@
 package com.ecomerce.ecommerce.model.Costumer;
 
+import com.ecomerce.ecommerce.model.Cart.Cart;
+import com.ecomerce.ecommerce.model.Products.Products;
 import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithoutId;
 
 import java.util.List;
@@ -9,15 +11,9 @@ public class CostumerResponse {
     private String email;
     private String cpf_cnpj;
     private String username;
+    private String password;
     private Boolean costumer;
-
-    public Boolean getCostumer() {
-        return costumer;
-    }
-
-    public void setCostumer(Boolean costumer) {
-        this.costumer = costumer;
-    }
+    private Cart cart;
 
     public Integer getId() {
         return id;
@@ -51,4 +47,27 @@ public class CostumerResponse {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getCostumer() {
+        return costumer;
+    }
+
+    public void setCostumer(Boolean costumer) {
+        this.costumer = costumer;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }

@@ -1,13 +1,12 @@
 package com.ecomerce.ecommerce.controller;
 
-import com.ecomerce.ecommerce.model.Products.Products;
+import com.ecomerce.ecommerce.model.Cart.CartDTO;
+import com.ecomerce.ecommerce.model.Cart.CartRequest;
+import com.ecomerce.ecommerce.model.Cart.CartResponse;
 import com.ecomerce.ecommerce.model.Products.ProductsDTO;
 import com.ecomerce.ecommerce.model.Products.ProductsRequest;
 import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithId;
-import com.ecomerce.ecommerce.model.Products.Reponses.ProductResponseWithoutId;
 import com.ecomerce.ecommerce.model.Products.Reponses.ProductsResponse;
-import com.ecomerce.ecommerce.model.Sellers.SellerDTO;
-import com.ecomerce.ecommerce.model.Sellers.SellerResponse;
 import com.ecomerce.ecommerce.services.ProductsS;
 import com.ecomerce.ecommerce.util.Constantes;
 import com.ecomerce.ecommerce.util.Utils;
@@ -26,6 +25,8 @@ public class ProductsC {
     ProductsS productsS;
 
 
+
+
     @PostMapping("/product")
     public ResponseEntity<ProductResponseWithId> createNewProduct(@RequestBody ProductsRequest productsRequest) {
         ProductsDTO productsDTO = Utils.getModelMapperInstance(productsRequest, ProductsDTO.class);
@@ -34,6 +35,17 @@ public class ProductsC {
         ProductResponseWithId products = Utils.getModelMapperInstance(productsDTO, ProductResponseWithId.class);
         return new ResponseEntity<>(products, HttpStatus.CREATED);
     }
+
+
+    @PostMapping("/product/add")
+    public ResponseEntity<CartResponse> addCar(@RequestBody CartRequest cartRequest) {
+        CartDTO cartDTO = Utils.getModelMapperInstance(cartRequest, CartDTO.class);
+        cartDTO = productsS.addCar(cartDTO);
+        CartResponse cart = Utils.getModelMapperInstance(cartDTO, CartResponse.class);
+        return new ResponseEntity<>(cart, HttpStatus.CREATED);
+    }
+
+
 
     @GetMapping("/product")
     public ResponseEntity<List<ProductsResponse>> listAllProducts() {
