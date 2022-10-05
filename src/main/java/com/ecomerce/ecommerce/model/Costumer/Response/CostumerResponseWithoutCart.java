@@ -1,28 +1,11 @@
-package com.ecomerce.ecommerce.model.Costumer;
+package com.ecomerce.ecommerce.model.Costumer.Response;
 
-import com.ecomerce.ecommerce.model.Cart.Cart;
-
-import javax.persistence.*;
-
-@Entity
-public class Costumer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CostumerResponseWithoutCart {
     private Integer id;
-    @Column(name = "email")
     private String email;
-    @Column(name = "cpf_cnpj")
     private String cpf_cnpj;
-    @Column(name = "username")
     private String username;
-    @Column(name = "password")
     private String password;
-    @Column(name = "costumer")
-    private Boolean costumer;
-
-    @OneToOne(mappedBy = "costumer", cascade = CascadeType.ALL)
-    private Cart cart;
-
 
     public Integer getId() {
         return id;
@@ -62,21 +45,5 @@ public class Costumer {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Boolean getCostumer() {
-        return costumer;
-    }
-
-    public void setCostumer(Boolean costumer) {
-        this.costumer = costumer;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 }

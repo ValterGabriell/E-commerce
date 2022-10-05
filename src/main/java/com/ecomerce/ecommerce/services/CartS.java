@@ -35,32 +35,51 @@ public class CartS {
     public CartDTO addCar(CartDTO cartDTO) {
         boolean existId = ImportantsMethods.Companion.verifyIfProductExists(cartDTO.getProduct(), productsRep);
         Costumer costumer = costumerRep.findById(cartDTO.getCostumer().getId()).get();
+        //verificar se o usuario ja tem carrinho, senao tiver criar um
         if (existId){
-            //setando o id do carrinho sendo o id do usuario
-            cartDTO.setId(costumer.getId());
+            if (costumer.getCart() == null){
+                Cart cart = Utils.getModelMapperInstance(cartDTO, Cart.class);
+                //retornando a lista de produtos passados na request como uma lista de inteiro filtrando por id
+                List<Integer> listIds = ImportantsMethods.Companion.returnIds(cart.getProduct());
 
-            Cart cart = Utils.getModelMapperInstance(cartDTO, Cart.class);
+                //identificamos todos na lista de produtos gerais que tenham esses ids
+                List<Products> productsList = productsRep.findAllById(listIds);
 
+                //calculando o valor total da lista
+                Double totalValue = ImportantsMethods.Companion.calculateTotalValue(productsList);
 
-            //retornando a lista de produtos passados na request como uma lista de inteiro filtrando por id
-            List<Integer> listIds = ImportantsMethods.Companion.returnIds(cart.getProduct());
+                //trecho responsavel por salvar os dados para que seja retornado ao controller
+                cartDTO.setAmount(totalValue);
+                cartDTO.setProduct(productsList);
+                cartDTO.setCostumer(costumer);
 
-            //identificamos todos na lista de produtos gerais que tenham esses ids
-            List<Products> productsList = productsRep.findAllById(listIds);
+                cart.setAmount(totalValue);
+                cartRep.save(cart);
+                cartDTO.setId(cart.getId());
+                return cartDTO;
+            }else{
+                Cart cart = Utils.getModelMapperInstance(cartDTO, Cart.class);
+                //retornando a lista de produtos passados na request como uma lista de inteiro filtrando por id
+                List<Integer> listIds = ImportantsMethods.Companion.returnIds(cart.getProduct());
 
-            //calculando o valor total da lista
-            Double totalValue = ImportantsMethods.Companion.calculateTotalValue(productsList);
+                //identificamos todos na lista de produtos gerais que tenham esses ids
+                List<Products> productsList = productsRep.findAllById(listIds);
 
-            cartDTO.setAmount(totalValue);
-            cartDTO.setCostumer(costumer);
-            cart.setAmount(totalValue);
+                //calculando o valor total da lista
+                Double totalValue = ImportantsMethods.Companion.calculateTotalValue(productsList);
 
-            cartRep.save(cart);
+                //trecho responsavel por salvar os dados para que seja retornado ao controller
+                cartDTO.setAmount(totalValue);
+                cartDTO.setProduct(productsList);
+                cartDTO.setCostumer(costumer);
+                cartDTO.setId(costumer.getId());
+                //salvando o id do cart como id so usuario para que nao se repita e o valor total
+                cart.setAmount(totalValue);
+                cart.setId(costumer.getId());
+                cartRep.save(cart);
 
-            cartDTO.setProduct(productsList);
-            cartDTO.setId(cart.getId());
-
-            return cartDTO;
+                return cartDTO;
+            }
         }else{
             return new CartDTO();
         }

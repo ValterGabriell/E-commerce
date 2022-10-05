@@ -1,18 +1,13 @@
 package com.ecomerce.ecommerce.services;
 
-import com.ecomerce.ecommerce.model.Cart.Cart;
-import com.ecomerce.ecommerce.model.Cart.CartDTO;
-import com.ecomerce.ecommerce.model.Cart.CartRep;
-import com.ecomerce.ecommerce.model.Costumer.Costumer;
-import com.ecomerce.ecommerce.model.Costumer.CostumerRep;
 import com.ecomerce.ecommerce.model.Products.Products;
 import com.ecomerce.ecommerce.model.Products.ProductsDTO;
 import com.ecomerce.ecommerce.model.Products.ProductsRep;
 import com.ecomerce.ecommerce.model.Sellers.Seller;
 import com.ecomerce.ecommerce.model.Sellers.SellerRep;
 import com.ecomerce.ecommerce.util.Constantes;
-import com.ecomerce.ecommerce.util.Utils;
 import com.ecomerce.ecommerce.util.ImportantsMethods;
+import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +40,15 @@ public class ProductsS {
         return productsList.stream().map(element -> Utils.getModelMapperInstance(element, ProductsDTO.class)).collect(Collectors.toList());
     }
 
+    public ProductsDTO getProductById(Integer id) {
+        Optional<Products> product = productsRep.findById(id);
+        if (product.isPresent()) {
+            return Utils.getModelMapperInstance(product.get(), ProductsDTO.class);
+        } else {
+            return new ProductsDTO();
+        }
+    }
+
 
     public String deleteProductById(Integer seller_id, Integer productId) {
         Optional<Seller> seller = sellerRep.findById(seller_id);
@@ -53,8 +57,8 @@ public class ProductsS {
     }
 
     public String deleteProductByIdWhitoutSeller(Integer productId) {
-            productsRep.deleteById(productId);
-            return Constantes.DELETED_OK;
+        productsRep.deleteById(productId);
+        return Constantes.DELETED_OK;
     }
 
 

@@ -2,7 +2,7 @@ package com.ecomerce.ecommerce.controller;
 
 import com.ecomerce.ecommerce.model.Costumer.CostumerDTO;
 import com.ecomerce.ecommerce.model.Costumer.CostumerRequest;
-import com.ecomerce.ecommerce.model.Costumer.CostumerResponse;
+import com.ecomerce.ecommerce.model.Costumer.Response.CostumerResponseWithoutCart;
 import com.ecomerce.ecommerce.services.CostumerS;
 import com.ecomerce.ecommerce.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,10 @@ public class CostumerC {
     CostumerS costumerS;
 
     @PostMapping("/signUp")
-    public ResponseEntity<CostumerResponse> signUpCostumer(@RequestBody CostumerRequest costumerRequest) {
+    public ResponseEntity<CostumerResponseWithoutCart> signUpCostumer(@RequestBody CostumerRequest costumerRequest) {
         CostumerDTO costumerDTO = Utils.getModelMapperInstance(costumerRequest, CostumerDTO.class);
         costumerDTO = costumerS.signUpCostumer(costumerDTO);
-        CostumerResponse costumerResponse = Utils.getModelMapperInstance(costumerDTO, CostumerResponse.class);
+        CostumerResponseWithoutCart costumerResponse = Utils.getModelMapperInstance(costumerDTO, CostumerResponseWithoutCart.class);
         return new ResponseEntity<>(costumerResponse, HttpStatus.CREATED);
     }
 }
