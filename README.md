@@ -3,364 +3,357 @@
        Project under construction
 </h4>
 
-table of contents
-===================
-<!--ts-->
-    * [About](#About)
-    * [Credits](#Credits)
-<!--te-->
-
 <h1>About</h1>
 <p>Backend for a small e-commerce system.
    </br>
 <h1>ENDPOINTS</h1>
-<p>Para começar, você deve criar um usuário, seja ele cliente ou vendedor.
+<p>To get started, you must create a user, either a customer or a salesperson.
 <h1>POST<h1>
-<h2>Criar vendedor<h2>
+<h2>Create seller<h2>
 
 ```
 /seller/signUp
 ```
-<p>O formato de dados que deve ser passado no corpo da requisição JSON deve ser da seguinte maneira.</p>
+<p>The data format that must be passed in the body of the JSON request must be as follows.</p>
 
 ```
 {
-	"email":"teste@teste.com",
-	"cpf_cnpj":"123456789",
-	"username":"username",
-	"password":"hashpassword"
+"email":"test@test.com",
+"cpf_cnpj":"123456789",
+"username":"username",
+"password":"hashpassword"
 }
 ```
 
-<p>E você irá ter a seguinte resposta.</p>
+<p>And you will get the following response.</p>
 
 ```
 {
-	"id": 1,
-	"email": "teste@teste.com",
-	"cpf_cnpj": "123456789",
-	"username": "username"
+"id": 1,
+"email": "test@test.com",
+"cpf_cnpj": "123456789",
+"username": "username"
 }
 ```
 
-<h2>Criar cliente<h2>
+<h2>Create customer<h2>
 
 ```
-/costumer/signUp
+/customer/signUp
 ```
-<p>O formato de dados que deve ser passado no corpo da requisição JSON deve ser da seguinte maneira.</p>
+<p>The data format that must be passed in the body of the JSON request must be as follows.</p>
 
 ```
 {
-	"email":"teste@teste.com",
-	"cpf_cnpj":"123456789",
-	"username":"username",
-	"password":"hashpassword"
+"email":"test@test.com",
+"cpf_cnpj":"123456789",
+"username":"username",
+"password":"hashpassword"
 }
 ```
 
-<p>E você irá ter a seguinte resposta.</p>
+<p>And you will get the following response.</p>
 
 ```
 {
-	"email": "teste@teste.com",
-	"cpf_cnpj": "123456789",
-	"username": "username",
+"email": "test@test.com",
+"cpf_cnpj": "123456789",
+"username": "username",
 }
 ```
 
 
-<h2>Criar produto<h2>
+<h2>Create product<h2>
 
 ```
 /product
 ```
-<p>O formato de dados que deve ser passado no corpo da requisição JSON deve ser da seguinte maneira.</p>
+<p>The data format that must be passed in the body of the JSON request must be as follows.</p>
 
 ```
 
 {
-	"name":"produto",
-	"price":4.45,
-	"seller_id":{
-		"id":1
-	}
+"name":"product",
+"price":4.45,
+"seller_id":{
+"id":1
+}
 }
 
 ```
 
-<p>Onde o ID deve ser um ID de seller existente.</p>
+<p>Where the ID must be an existing seller ID.</p>
 
-<p>E você irá ter a seguinte resposta.</p>
+<p>And you will get the following response.</p>
 
 ```
 {
-	"id": 1,
-	"name": "produto",
-	"price": 4.45,
-	"seller_id": 1
+"id": 1,
+"name": "product",
+"price": 4.45,
+"seller_id": 1
 }
 ```
 
 
-<h2>Criar carrinho de compra<h2>
+<h2>Create shopping cart<h2>
 
 ```
 /cart/product/add
 ```
-<p>O formato de dados que deve ser passado no corpo da requisição JSON deve ser da seguinte maneira.</p>
+<p>The data format that must be passed in the body of the JSON request must be as follows.</p>
 
 ```
 {
-	"product":[{
-	"id":1
+"product":[{
+"id":1
 }],
-	"costumer":{
-		"id":1
-	}
+"customer":{
+"id":1
+}
 }
 ```
 
-<p>Onde o product será uma lista de produtos e costumer deve ser um ID de seller existente.</p>
+<p>Where product will be a list of products and costumer must be an existing seller ID.</p>
 
-<p>E você irá ter a seguinte resposta.</p>
+<p>And you will get the following response.</p>
 
 ```
 {
-	"id": 1,
-	"amount": 4.45,
-	"product": [
-		{
-			"id": 1,
-			"name": "produto",
-			"price": 4.45
-		}
-	],
-	"costumer": {
+"id": 1,
+"amount": 4.45,
+"product": [
+{
+"id": 1,
+"name": "product",
+"price": 4.45
+}
+],
+"customer": {
               "id":1
-		"email": "teste@teste.com",
-		"username": "username"
-	}
+"email": "test@test.com",
+"username": "username"
+}
 }
 ```
 
 
 
-<h2>Criar perfil de administrador<h2>
+<h2>Create admin profile<h2>
 
 ```
 /admin/signUp
 ```
-<p>O formato de dados que deve ser passado no corpo da requisição JSON deve ser da seguinte maneira.</p>
+<p>The data format that must be passed in the body of the JSON request must be as follows.</p>
 
 ```
 {
-	"username":"teste",
-	"password":"password",
-	"cpf":123456789,
-	"cellphone":123456789,
-	"email":"teste@teste.com"
+"username":"test",
+"password":"password",
+"cpf":123456789,
+"cellphone":123456789,
+"email":"test@test.com"
 }
 ```
 
-<p>Onde o product será uma lista de produtos e costumer deve ser um ID de seller existente.</p>
+<p>Where product will be a list of products and costumer must be an existing seller ID.</p>
 
-<p>E você irá ter a seguinte resposta.</p>
+<p>And you will get the following response.</p>
 
 ```
 {
-	"username": "teste",
-	"cpf": 123456789,
-	"cellphone": 123456789,
-	"email": "teste@teste.com"
+"username": "test",
+"cpf": 123456789,
+"cellphone": 123456789,
+"email": "test@test.com"
 }
 ```
 
 <hr>
 
 <h1>GET<h1>
-<h2>Recuperar todos os produtos<h2>
+<h2>Retrieve all products<h2>
 
 ```
 /product
 ```
-<p>O formato de dados que será recebido se dá da seguinte maneira.</p>
+<p>The data format that will be received is as follows.</p>
 
 ```
 [
-	{
-		"id": 1,
-		"name": "agua",
-		"price": 4.0,
-		"seller_id": {
-			"id": 1,
-			"email": "teste@hotmail.com",
-			"cpf_cnpj": "85461324",
-			"username": "gab",
-			"password": "ODQ1NDIx"
-		},
-		"cartList": [
-			{
-				"id": 1,
-				"amount": 4.0
-			}
-		]
-	},
-	{
-		"id": 2,
-		"name": "peixe",
-		"price": 4.0,
-		"seller_id": {
-			"id": 1,
-			"email": "teste@hotmail.com",
-			"cpf_cnpj": "85461324",
-			"username": "gab",
-			"password": "ODQ1NDIx"
-		},
-		"cartList": [
-			{
-				"id": 2,
-				"amount": 4.0
-			}
-		]
-	}
+{
+"id": 1,
+"name": "water",
+"price": 4.0,
+"seller_id": {
+"id": 1,
+"email": "test@hotmail.com",
+"cpf_cnpj": "85461324",
+"username": "gab",
+"password": "ODQ1NDIx"
+},
+"cartList": [
+{
+"id": 1,
+"amount": 4.0
+}
+]
+},
+{
+"id": 2,
+"name": "fish",
+"price": 4.0,
+"seller_id": {
+"id": 1,
+"email": "test@hotmail.com",
+"cpf_cnpj": "85461324",
+"username": "gab",
+"password": "ODQ1NDIx"
+},
+"cartList": [
+{
+"id": 2,
+"amount": 4.0
+}
+]
+}
 ]
 ```
 
-<h2>Recuperar produto por id<h2>
+<h2>Retrieve product by id<h2>
 
 ```
 /product/{id}
 ```
 
-<p>O formato de dados que será recebido se dá da seguinte maneira.</p>
+<p>The data format that will be received is as follows.</p>
 
 ```
 {
-	"id": 2,
-	"name": "peixe",
-	"price": 4.0,
-	"seller_id": {
-		"id": 1,
-		"email": "teste@hotmail.com",
-		"cpf_cnpj": "85461324",
-		"username": "gab",
-		"password": "ODQ1NDIx"
-	},
-	"cartList": [
-		{
-			"id": 1,
-			"amount": 8.0
-		},
-		{
-			"id": 2,
-			"amount": 4.0
-		}
-	]
+"id": 2,
+"name": "fish",
+"price": 4.0,
+"seller_id": {
+"id": 1,
+"email": "test@hotmail.com",
+"cpf_cnpj": "85461324",
+"username": "gab",
+"password": "ODQ1NDIx"
+},
+"cartList": [
+{
+"id": 1,
+"amount": 8.0
+},
+{
+"id": 2,
+"amount": 4.0
+}
+]
 }
 ```
 
 
-<h2>Recuperar todos os vendedores (admin)<h2>
+<h2>Retrieve all sellers (admin)<h2>
 
 ```
 /admin/sellers
 ```
 
-<p>O formato de dados que será recebido se dá da seguinte maneira.</p>
+<p>The data format that will be received is as follows.</p>
 
 ```
 [
-	{
-		"id": 1,
-		"email": "teste@hotmail.com",
-		"cpf_cnpj": "85461324",
-		"username": "gab",
-		"productsList": [
-			{
-				"id": 1,
-				"name": "cafe",
-				"price": 14.45
-			},
-			{
-				"id": 2,
-				"name": "agua",
-				"price": 13.45
-			},
-			{
-				"id": 3,
-				"name": "peixe",
-				"price": 3.45
-			}
-		]
-	}
+{
+"id": 1,
+"email": "test@hotmail.com",
+"cpf_cnpj": "85461324",
+"username": "gab",
+"productsList": [
+{
+"id": 1,
+"name": "cafe",
+"price": 14.45
+},
+{
+"id": 2,
+"name": "water",
+"price": 13.45
+},
+{
+"id": 3,
+"name": "fish",
+"price": 3.45
+}
+]
+}
 ]
 ```
 
 
 
-<h2>Recuperar vendedor por id<h2>
+<h2>Retrieve seller by id<h2>
 
 ```
 /admin/sellers/{id}
 ```
 
-<p>O formato de dados que será recebido se dá da seguinte maneira.</p>
+<p>The data format that will be received is as follows.</p>
 
 ```
 {
-	"id": 1,
-	"email": "teste@hotmail.com",
-	"cpf_cnpj": "85461324",
-	"username": "gab",
-	"productsList": [
-		{
-			"id": 1,
-			"name": "agua",
-			"price": 4.0
-		},
-		{
-			"id": 2,
-			"name": "peixe",
-			"price": 4.0
-		}
-	]
+"id": 1,
+"email": "test@hotmail.com",
+"cpf_cnpj": "85461324",
+"username": "gab",
+"productsList": [
+{
+"id": 1,
+"name": "water",
+"price": 4.0
+},
+{
+"id": 2,
+"name": "fish",
+"price": 4.0
+}
+]
 }
 ```
 
 
 
-<h2>Recuperar carrinho por id de cliente<h2>
+<h2>Retrieve cart by customer id<h2>
 
 ```
 /cart/get/2
 ```
 
-<p>O formato de dados que será recebido se dá da seguinte maneira.</p>
+<p>The data format that will be received is as follows.</p>
 
 ```
 {
-	"id": 2,
-	"amount": 4.0,
-	"product": [
-		{
-			"id": 2,
-			"name": "peixe",
-			"price": 4.0
-		}
-	],
-	"costumer": {
-		"id": 2,
-		"email": "teste@hotmail.com",
-		"cpf_cnpj": "85461324",
-		"username": "gab",
-		"password": "ODQ1NDIx",
-		"costumer": true,
-		"cart": {
-			"id": 2,
-			"amount": 4.0
-		}
-	}
+"id": 2,
+"amount": 4.0,
+"product": [
+{
+"id": 2,
+"name": "fish",
+"price": 4.0
+}
+],
+"customer": {
+"id": 2,
+"email": "test@hotmail.com",
+"cpf_cnpj": "85461324",
+"username": "gab",
+"password": "ODQ1NDIx",
+"customer": true,
+"card": {
+"id": 2,
+"amount": 4.0
+}
+}
 }
 ```
 
